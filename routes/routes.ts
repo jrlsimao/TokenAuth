@@ -18,7 +18,7 @@ export class RoutesAuth {
 
     private setRoutes():void{
         if(this.localServer){
-            this.localServer.get('/buscarToken/:tokenAssinado', this.controlador.verificaToken.bind(this.controlador));
+            this.localServer.post('/buscarToken', this.controlador.verificaToken.bind(this.controlador));
             this.localServer.post('/criarToken', this.controlador.criaToken.bind(this.controlador));
             this.localServer.get('/', (req, res)=>res.send('Funciona'));
         }

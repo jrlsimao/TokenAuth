@@ -18,7 +18,7 @@ export class AuthController{
             const requestBody = <Token>req.body;
             console.log(requestBody);
             newToken.id = requestBody.id;
-            newToken.tokenAssinado = jwt.sign({"id": newToken.id}, this.palavraSecreta, { expiresIn: '1m' });
+            newToken.tokenAssinado = jwt.sign({"id": newToken.id}, this.palavraSecreta, { expiresIn: '1h' });
             newToken.save().then((token)=>{
                 if(token){
                     resp.status(200).send(token);
@@ -38,8 +38,9 @@ export class AuthController{
     }
 
     public verificaToken(req:Request, resp:Response){
-        console.log(req.headers.tokenassinado);
-        const infoRequest = req.headers.tokenassinado;
+        console.log('Request------------');
+        console.log(req.body.tokenassinado);
+        const infoRequest = req.body.tokenassinado;
         authenticationToken.findOne({"tokenAssinado": infoRequest}).then((result)=>{
             console.log(result);
             if(result){
